@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  incomes      Income[]
+  expenses     Expense[]
+}
+
+enum IncomeSource {
+  SALARY
+  OTHER
+}
+
+model Income {
+  id          String       @id @default(cuid())
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amountUsd   Decimal      @db.Decimal(12, 2)
+  description String?
+  sourceType  IncomeSource @default(OTHER)
+  occurredOn  DateTime     @db.Date
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([userId, occurredOn])
+}
+
+enum ExpenseKind {
+  FIXED
+  VARIABLE
+}
+
+model Expense {
+  id          String      @id @default(cuid())
+  userId      String
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amountUsd   Decimal     @db.Decimal(12, 2)
+  description String?
+  category    String?
+  expenseType ExpenseKind
+  occurredOn  DateTime    @db.Date
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([userId, occurredOn])
+}

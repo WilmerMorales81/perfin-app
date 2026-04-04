@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PERFIN — personal finance
 
-## Getting Started
+Next.js app for multi-user income and expense tracking (USD), monthly dashboard, fixed vs variable expenses, and salary vs other income.
 
-First, run the development server:
+- **UI:** English  
+- **Stack:** Next.js 16 (App Router), TypeScript, Tailwind, Prisma 5, PostgreSQL (e.g. [Railway](https://railway.app/)), session cookies signed with [jose](https://github.com/panva/jose) (`AUTH_SECRET`)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+See also `AGENTS.md` and `docs/PLAN_FINANZAS_PERSONALES.md`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Copy environment file and fill values:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   copy .env.example .env
+   ```
 
-## Learn More
+2. In **Railway**, add a **PostgreSQL** plugin (or use an existing database), open **Variables** / **Connect** and copy the **Postgres connection URL** (often labeled `DATABASE_URL` or `POSTGRES_URL`). Set:
 
-To learn more about Next.js, take a look at the following resources:
+   - `DATABASE_URL` — full PostgreSQL URL (Railway usually provides it with user, password, host, port, and DB name; add `?sslmode=require` only if your client fails without SSL)
+   - `AUTH_SECRET` — at least 16 random characters, e.g.  
+     `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Push the schema and run the dev server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm install
+   npx prisma db push
+   npm run dev
+   ```
 
-## Deploy on Vercel
+4. Open [http://localhost:3000](http://localhost:3000), register, then use **Dashboard** for the current month.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command | Purpose |
+|--------|---------|
+| `npm run dev` | Development server |
+| `npm run build` | Production build (`prisma generate` + `next build`) |
+| `npm run db:push` | Apply `schema.prisma` to the database (dev) |
+| `npm run db:studio` | Prisma Studio |
+
+## Deploy (Vercel + Railway Postgres)
+
+Later: connect the Git repo to Vercel, set `DATABASE_URL` and `AUTH_SECRET` in the Vercel project settings (use your Railway **production** database URL if it differs from local).
