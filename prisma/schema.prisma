@@ -8,14 +8,48 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(cuid())
-  email        String    @unique
-  passwordHash String
-  name         String?
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  incomes      Income[]
-  expenses     Expense[]
+  id              String           @id @default(cuid())
+  email           String           @unique
+  passwordHash    String
+  name            String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  incomes         Income[]
+  expenses        Expense[]
+  debtAccounts    DebtAccount[]
+  plannedEvents   PlannedEvent[]
+  paySchedule     PaySchedule?
+  recurringBills  RecurringBill[]
+}
+
+/// Paydays each month (e.g. 7 and 22) and net amount per deposit
+model PaySchedule {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payDay1            Int
+  payDay2            Int?
+  amountPerPaycheck  Decimal  @db.Decimal(12, 2)
+  label              String?
+  /// Year for the paycheck-plan grid (e.g. 2026)
+  projectionYear     Int      @default(2026)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+}
+
+/// Recurring monthly obligation (rent, cards, utilities) — day-of-month due
+model RecurringBill {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name            String
+  amountUsd       Decimal  @db.Decimal(12, 2)
+  dueDayOfMonth   Int
+  category        String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
 }
 
 enum IncomeSource {
@@ -55,4 +89,45 @@ model Expense {
   updatedAt   DateTime    @updatedAt
 
   @@index([userId, occurredOn])
+}
+
+/// Credit cards, loans, etc. — balance snapshot + optional minimum payment / due day
+model DebtAccount {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name           String
+  balanceUsd     Decimal  @db.Decimal(12, 2)
+  monthlyMinUsd  Decimal? @db.Decimal(12, 2)
+  dueDayOfMonth  Int?
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum PlannedDirection {
+  INCOME
+  EXPENSE
+}
+
+/// Future-dated one-off items (bonus, planned card payoff, large expense)
+model PlannedEvent {
+  id           String           @id @default(cuid())
+  userId       String
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  direction    PlannedDirection
+  date         DateTime         @db.Date
+  amountUsd    Decimal          @db.Decimal(12, 2)
+  description  String?
+  /// For INCOME: SALARY | OTHER
+  incomeSource IncomeSource?
+  /// For EXPENSE: FIXED | VARIABLE
+  expenseType  ExpenseKind?
+  category       String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([userId, date])
 }

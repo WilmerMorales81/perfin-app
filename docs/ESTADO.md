@@ -5,7 +5,7 @@ Actualiza este archivo cuando completes una fase o al cerrar una sesión larga, 
 ## Última actualización
 
 - **Fecha:** 2026-04-04
-- **Sesión:** Scaffold Next.js 16 + Prisma 5 + PostgreSQL schema (User, Income, Expense). Auth por cookie JWT (`jose` + `AUTH_SECRET`). Dashboard mensual en USD con formularios de ingresos/gastos y listas. Infra DB: **Railway** (u otro Postgres); basta `DATABASE_URL` + `npx prisma db push`. Pendiente: deudas/eventos anuales y deploy Vercel.
+- **Sesión:** `PaySchedule` + `RecurringBill`; **Paycheck plan** con regla de **ventanas** (días 1–(p1−1) → 2.º pago mes anterior; p1–p2 → 1.er pago del mes; &gt;p2 → 2.º pago del mes). `IMPORT_CSV.md` incluye **sección “Contexto para continuar”** para IA/sesiones futuras. Cash flow: proyectado incluye mes actual. Pendiente: vista anual, deploy estable en Railway.
 
 ## Fases (checklist)
 
@@ -15,8 +15,9 @@ Marca con `[x]` lo completado.
 - [x] **Auth:** registro/login; datos por usuario *(sesión JWT en cookie `perfin_session`)*
 - [x] **MVP datos:** ingresos y gastos (fijo/variable); CRUD
 - [x] **Dashboard:** resumen mensual en USD
-- [ ] **Deudas y productos financieros** + eventos planificados
-- [ ] **Vistas anuales** y filtros
+- [x] **Deudas** (`DebtAccount`) + **eventos planificados** (`PlannedEvent`); import CSV; **Cash flow** histórico (12m) + proyectado (24m)
+- [x] **Paycheck plan** (`PaySchedule`, `RecurringBill`); regla de ventanas documentada en `docs/IMPORT_CSV.md`
+- [ ] **Vistas anuales** dedicadas y filtros extra
 - [ ] **Deploy Vercel** + variables de entorno de producción
 
 ## Fases posteriores (no bloquean el MVP)

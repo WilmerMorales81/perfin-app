@@ -21,6 +21,7 @@ App web **personal de finanzas**: ingresos, gastos fijos/variables, deudas, plan
 
 1. **[docs/PLAN_FINANZAS_PERSONALES.md](docs/PLAN_FINANZAS_PERSONALES.md)** — plan completo, prompt inicial en inglés, decisiones de producto.
 2. **[docs/ESTADO.md](docs/ESTADO.md)** — qué fase está hecha y notas de la última sesión (actualizar cuando se complete trabajo).
+3. **[docs/IMPORT_CSV.md](docs/IMPORT_CSV.md)** — formato CSV, prompt para ChatGPT/Claude y **sección “Contexto para continuar”** (reglas Paycheck plan, Cash flow, modelos).
 
 Si el plan en Cursor (`.cursor/plans/`) difiere, **prioriza lo acordado en `docs/PLAN_FINANZAS_PERSONALES.md`** y alinea ambos.
 

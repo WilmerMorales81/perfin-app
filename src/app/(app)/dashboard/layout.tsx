@@ -11,10 +11,38 @@ export default function DashboardLayout({
   return (
     <div className="flex min-h-full flex-col bg-zinc-50 dark:bg-zinc-950">
       <header className="border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-4">
-          <Link href="/dashboard" className="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
-            PERFIN
-          </Link>
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
+          <div className="flex flex-wrap items-center gap-4">
+            <Link href="/dashboard" className="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
+              PERFIN
+            </Link>
+            <nav className="flex flex-wrap gap-2 text-sm">
+              <Link
+                href="/dashboard"
+                className="rounded-md px-2 py-1 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+              >
+                Overview
+              </Link>
+              <Link
+                href="/dashboard/cashflow"
+                className="rounded-md px-2 py-1 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+              >
+                Cash flow
+              </Link>
+              <Link
+                href="/dashboard/import"
+                className="rounded-md px-2 py-1 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+              >
+                Import
+              </Link>
+              <Link
+                href="/dashboard/paycheck-plan"
+                className="rounded-md px-2 py-1 text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-50"
+              >
+                Paycheck plan
+              </Link>
+            </nav>
+          </div>
           <form action={logoutAction}>
             <button
               type="submit"

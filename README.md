@@ -5,7 +5,9 @@ Next.js app for multi-user income and expense tracking (USD), monthly dashboard,
 - **UI:** English  
 - **Stack:** Next.js 16 (App Router), TypeScript, Tailwind, Prisma 5, PostgreSQL (e.g. [Railway](https://railway.app/)), session cookies signed with [jose](https://github.com/panva/jose) (`AUTH_SECRET`)
 
-See also `AGENTS.md` and `docs/PLAN_FINANZAS_PERSONALES.md`.
+See also `AGENTS.md`, `docs/PLAN_FINANZAS_PERSONALES.md`, and **`docs/IMPORT_CSV.md`** (bulk import + prompt for ChatGPT/Claude).
+
+After pulling changes, run **`npx prisma db push`** so new tables exist (`DebtAccount`, `PlannedEvent`, `PaySchedule`, `RecurringBill`). Then open **Dashboard → Paycheck plan** for paydays vs recurring bills.
 
 ## Local setup
 

@@ -1,0 +1,23 @@
+record_type,date,amount_usd,subtype,description,category,name,monthly_min_usd,due_day
+income,2026-03-01,4100.0,SALARY,Monthly salary,Income,,,
+planned_expense,,1475.0,FIXED,Rent,Housing,,,
+planned_expense,,547.0,FIXED,Car payment,Transportation,,,
+planned_expense,,150.0,FIXED,BofA Credit Card,Credit Card,,,
+planned_expense,,150.0,FIXED,Capital One Credit Card,Credit Card,,,
+planned_expense,,150.0,FIXED,Macy's Credit Card,Credit Card,,,
+planned_expense,,150.0,FIXED,Credit One Card,Credit Card,,,
+planned_expense,,600.0,FIXED,Colombia payments,Family,,,
+planned_expense,,200.0,FIXED,Andrea payment,Family,,,
+planned_expense,,254.0,FIXED,NSS Bootcamp,Education,,,
+planned_expense,,431.0,FIXED,Student Loan Aidvantage,Debt,,,
+planned_expense,,297.0,FIXED,Verizon Cellphone,Utilities,,,
+planned_expense,,133.0,FIXED,Internet AT&T,Utilities,,,
+planned_expense,,117.0,FIXED,Car Insurance,Insurance,,,
+planned_expense,,152.0,FIXED,Aflac Insurance,Insurance,,,
+planned_expense,,130.0,FIXED,Electricity,Utilities,,,
+planned_expense,,130.0,FIXED,Water,Utilities,,,
+planned_expense,,26.0,FIXED,Netflix,Subscriptions,,,
+planned_expense,,1515.0,VARIABLE,Weekly expenses total,Living,,,
+debt,,1678.37,,Macy's Card balance,Credit Card,Macy's,150,10
+debt,,6835.82,,Capital One balance,Credit Card,Capital One,150,1
+debt,,1500.28,,Credit One balance,Credit Card,Credit One,150,11
